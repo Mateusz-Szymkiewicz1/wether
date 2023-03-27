@@ -263,10 +263,13 @@ function use_time() {
   city_name.innerText = window.city + " - " + hour + ":" + min;
   span_date.innerText = day + "-" + month + "-" + date.getFullYear() + " - " + week_day;
 }
-
 function count_time() {
    use_time();
-  setInterval(function () {
+  if(window.interval){
+    clearInterval(window.interval);
+  }
+  window.interval = setInterval(function () {
+    clear_spans();
     use_time();
     change_city(window.city)
   }, 60000)

@@ -63,6 +63,11 @@ document.querySelector(".left_arrow").addEventListener("click", function(){
         }
         clear_spans();
         change_city(window.city);
+        if(document.querySelector(".hourly_weather").style.display != 'none'){
+          clear_hourly();
+          hourly_weather();
+          document.querySelector(".hourly_weather").scrollTo(0,0);
+        }
     }
 })
 
@@ -76,6 +81,11 @@ document.querySelector(".right_arrow").addEventListener("click", function(){
         }
         clear_spans();
         change_city(window.city);
+        if(document.querySelector(".hourly_weather").style.display != 'none'){
+          clear_hourly();
+          hourly_weather();
+          document.querySelector(".hourly_weather").scrollTo(0,0);
+        }
     }
 })
 
