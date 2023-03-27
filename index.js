@@ -23,59 +23,12 @@ function get_weather(coords){
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             window.weather = JSON.parse(this.response);
             delete window.weather.hourly_units;
+            use_time();
             let date = new Date();
-            date.setDate(date.getUTCDate()+(window.selected_card-2));
-            window.current_hour = date.getUTCHours()+(window.weather.utc_offset_seconds/3600);
-            window.current_min = date.getUTCMinutes();
-            let min = window.current_min;
-            let month, day;
-            month = date.getUTCMonth()+1;
-            day = date.getUTCDate();
-            let week_day = get_day_name(date.getUTCDay());
-            if(window.current_hour > 24){
-                window.current_hour -= 24;
-                day++;
-                week_day = get_day_name(date.getUTCDay()+1);
-                if(day == 32 && [1,3,5,7,8,10,12].includes(month)){
-                    month++;
-                    day = 1;
-                }
-                if(day == 31 && [4,6,9,11].includes(month)){
-                    month++;
-                    day = 1;
-                }
-                if(day == 29 && month == 2 && date.getFullYear() % 4 != 0){
-                    month++;
-                    day = 1;
-                }
-                if(day == 30 && month == 2 && date.getFullYear() % 4 == 0){
-                    month++;
-                    day = 1;
-                }
-                if(month == 13){
-                    month = 1;
-                }
-            }
-            if(window.current_hour < 0){
-                window.current_hour += 24;
-                day--;
-                week_day = get_day_name(date.getUTCDay()-1);
-            }
-            let hour = window.current_hour;
-            if(hour < 10){
-                hour = "0"+hour;
-            }
-            if(day < 10){
-                day = "0"+day;
-            }
-            if(month < 10){
-                month = "0"+month;
-            }
-            if(min < 10){
-                min = "0"+min;
-            }
-            city_name.innerText = window.city+" - "+hour+":"+min;
-            span_date.innerText = day+"-"+month+"-"+date.getFullYear()+" - "+week_day;
+            let seconds_to_next_minute = 61-date.getSeconds();
+            setTimeout(function(){
+              count_time();
+            }, 1000*seconds_to_next_minute)
             let weather_code;
             if(window.selected_card == 2){
                 temp.innerText = window.weather.current_weather.temperature+"\u00B0C";
@@ -168,6 +121,7 @@ document.querySelector("input").addEventListener("keyup", function(e){
 })
 
 const successCallback = (position) => {
+    document.querySelector('input').value = ''
     var xmlhttp_user_coords = new XMLHttpRequest();
     xmlhttp_user_coords.onreadystatechange = function () {
         if (xmlhttp_user_coords.readyState == 4 && xmlhttp_user_coords.status == 200) {
