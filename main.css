@@ -59,14 +59,15 @@ h3 {
   top: 290px;
   cursor: pointer;
   color: var(--primary);
+  z-index: 100;
 }
 
 .left_arrow {
-  left: 40px;
+  left: 20px;
 }
 
 .right_arrow {
-  right: 40px;
+  right: 20px;
 }
 
 .date {
@@ -236,6 +237,14 @@ ul li i {
   color: #b2bec3;
 }
 
-.fa-cloud-rain {
+.fa-cloud-rain, .fa-cloud{
   color: #dfe6e9;
+}
+
+.fa-moon{
+  color: #ffeaa7;
+}
+
+.fa-sun{
+  color: #fffa65;
 }

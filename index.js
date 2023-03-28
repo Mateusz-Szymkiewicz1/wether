@@ -22,7 +22,6 @@ function get_weather(coords){
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             window.weather = JSON.parse(this.response);
-            delete window.weather.hourly_units;
             use_time();
             let date = new Date();
             let seconds_to_next_minute = 61-date.getSeconds();
@@ -46,7 +45,9 @@ function get_weather(coords){
             water.innerHTML += window.weather.hourly.rain[(window.selected_card*24)+current_hour]+"mm";
             snow.innerHTML += window.weather.hourly.snowfall[(window.selected_card*24)+current_hour]+"mm";window.sunrise = window.weather.daily.sunrise[window.selected_card];
             window.sunset = window.weather.daily.sunset[window.selected_card];
-            use_weather_code(weather_code);
+            let weather_code_response = use_weather_code(weather_code);
+            main_icon.className = weather_code_response[0]
+            desc.innerText = weather_code_response[1]
         }
     }
     xmlhttp.open("GET", `https://api.open-meteo.com/v1/forecast?latitude=${coords.x}&longitude=${coords.y}&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation_probability,rain,showers,snowfall,snow_depth,weathercode,surface_pressure,cloudcover,visibility,windspeed_10m,winddirection_10m&current_weather=true&past_days=2&timezone=auto&daily=sunrise,sunset`, true);
