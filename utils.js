@@ -204,7 +204,7 @@ document.querySelector(".fa-close").addEventListener("click", function(){
 function use_weather_code(weather_code,hour = null) {
   let sun = true;
   let main_icon,desc;
-  if(hour){
+  if(hour || hour == 0){
     if (hour > 20 || hour < 7){
       sun = false;
     }
