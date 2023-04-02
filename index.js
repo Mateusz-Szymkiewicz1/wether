@@ -56,11 +56,11 @@ function get_weather(coords){
 
 document.querySelector(".left_arrow").addEventListener("click", function(){
     if(window.selected_card > 0){
-        document.querySelector(".right_arrow").style.color = "#fff";
-        document.querySelector(".left_arrow").style.color = "#fff";
+        document.querySelector(".right_arrow").style = "";
+        document.querySelector(".left_arrow").style = "";
         window.selected_card--;
         if(window.selected_card == 0){
-            document.querySelector(".left_arrow").style.color = "#777";
+            document.querySelector(".left_arrow").style = 'filter: contrast(0)';
         }
         clear_spans();
         change_city(window.city);
@@ -74,11 +74,11 @@ document.querySelector(".left_arrow").addEventListener("click", function(){
 
 document.querySelector(".right_arrow").addEventListener("click", function(){
     if(window.selected_card < 8){
-        document.querySelector(".right_arrow").style.color = "#fff";
-        document.querySelector(".left_arrow").style.color = "#fff";
+        document.querySelector(".right_arrow").style = "";
+        document.querySelector(".left_arrow").style = "";
         window.selected_card++;
         if(window.selected_card == 8){
-            document.querySelector(".right_arrow").style.color = "#777";
+            document.querySelector(".right_arrow").style = 'filter: contrast(0)';
         }
         clear_spans();
         change_city(window.city);
@@ -151,5 +151,5 @@ document.querySelector("button").addEventListener("click", function(){
 if(localStorage.getItem("wether_city")){
     change_city(localStorage.getItem("wether_city"));
 }else{
- change_city("Kielce");   
+ change_city("Warsaw");   
 }
