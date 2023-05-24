@@ -129,12 +129,20 @@ function use_time() {
   date.setDate(date.getUTCDate() + (window.selected_card - 2));
   window.current_hour = date.getUTCHours() + (window.weather.utc_offset_seconds / 3600);
   window.current_min = date.getUTCMinutes();
+  if(window.current_hour === +window.current_hour && window.current_hour !== (window.current_hour|0)){
+    window.current_hour = Math.floor(window.current_hour);
+    window.current_min += 30;
+    if(window.current_min >= 60){
+      window.current_min -= 60;
+      window.current_hour++;
+    }
+  }
   let min = window.current_min;
   let month, day;
   month = date.getUTCMonth() + 1;
   day = date.getUTCDate();
   let week_day = get_day_name(date.getUTCDay());
-  if (window.current_hour > 24) {
+  if (window.current_hour >= 24) {
     window.current_hour -= 24;
     day++;
     week_day = get_day_name(date.getUTCDay() + 1);
@@ -328,7 +336,6 @@ function hourly_weather(){
     month = "0" + month;
   }
   document.querySelector(".hourly_weather h2").innerText = day+"-"+month+"-"+date.getFullYear()+" - "+week_day;
-  console.log(window.weather.hourly)
   let hourly_weather = window.weather.hourly;
   let weather_codes = hourly_weather.weathercode.slice((window.selected_card*24),(window.selected_card*24)+25);
   let temps =  hourly_weather.temperature_2m.slice((window.selected_card*24),(window.selected_card*24)+25);
