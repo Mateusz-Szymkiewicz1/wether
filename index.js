@@ -44,7 +44,6 @@ function get_weather(coords){
             humidity.innerHTML += window.weather.hourly.relativehumidity_2m[(window.selected_card*24)+current_hour]+"%";
             water.innerHTML += window.weather.hourly.rain[(window.selected_card*24)+current_hour]+"mm";
             snow.innerHTML += window.weather.hourly.snowfall[(window.selected_card*24)+current_hour]+"mm";window.sunrise = window.weather.daily.sunrise[window.selected_card];
-            snow.innerHTML += window.weather.hourly.snowfall[(window.selected_card*24)+current_hour]+"mm";window.sunrise = window.weather.daily.sunrise[window.selected_card];
             window.sunset = window.weather.daily.sunset[window.selected_card];
             let weather_code_response = use_weather_code(weather_code);
             main_icon.className = weather_code_response[0]
