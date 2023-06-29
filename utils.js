@@ -211,9 +211,11 @@ document.querySelector(".fa-close").addEventListener("click", function(){
 
 function use_weather_code(weather_code,hour = null) {
   let sun = true;
+  let sunset = false;
+  let sunrise = false;
   let main_icon,desc;
   if(hour || hour == 0){
-    if (hour > 20 || hour < 7){
+    if(hour > 20 || hour < 7){
       sun = false;
     }
   }else{
@@ -231,6 +233,12 @@ function use_weather_code(weather_code,hour = null) {
     }
     if (window.current_hour == sunset_hours && window.current_min > sunset_minutes) {
       sun = false;
+    }
+    if(window.current_hour == sunset_hours){
+      sunset = true;
+    }
+  if(window.current_hour == sunrise_hours){
+      sunrise = true;
     }
   }
   switch (weather_code) {
@@ -295,6 +303,19 @@ function use_weather_code(weather_code,hour = null) {
       main_icon= "fa fa-cloud-bolt";
       desc = "Thunderstorm";
       break;
+  }
+  if(!hour && hour != 0){
+    if (sun) {
+      document.documentElement.style.setProperty("--background", "linear-gradient(to bottom, #57c1eb 0%,#246fa8 100%)");
+    } else {
+      document.documentElement.style.setProperty("--background", "linear-gradient(to bottom, #20202c 0%,#515175 100%)");
+    }
+    if(sunset){
+      document.documentElement.style.setProperty("--background", "linear-gradient(to bottom, #071B26 0%,#071B26 30%,#8A3B12 80%,#240E03 100%)");
+    }
+    if(sunrise){
+      document.documentElement.style.setProperty("--background", "linear-gradient(to bottom, #757abf 0%,#8583be 60%,#eab0d1 100%)");
+    }
   }
   return [main_icon,desc];
 }

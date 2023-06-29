@@ -146,7 +146,7 @@ const successCallback = (position) => {
     xmlhttp_user_coords.send(null);
 };
 
-document.querySelector("button").addEventListener("click", function(){
+document.querySelector(".fa-location-dot").addEventListener("click", function(){
   navigator.geolocation.getCurrentPosition(successCallback);  
 })
 
