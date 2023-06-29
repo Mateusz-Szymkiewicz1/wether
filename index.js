@@ -101,7 +101,7 @@ document.querySelector("input").addEventListener("input", function(e){
                        window.cities.push(el.city); 
                     }
                 })
-                autocomplete(document.querySelector("input"),window.cities);
+                autocomplete(e.target,window.cities);
             }
         }
         xmlhttp_ac.open("GET", `https://api.geoapify.com/v1/geocode/autocomplete?text=${e.target.value}&type=city&format=json&apiKey=fc46623c65e3426d9994c9714769f536`, true);

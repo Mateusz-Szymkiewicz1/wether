@@ -1,6 +1,6 @@
 :root {
   --primary: #f4ad23;
-  --background: linear-gradient(to bottom, #57c1eb 0%,#246fa8 100%);
+  --background: linear-gradient(to bottom, #46b0da 0%,#135e97 100%);
 }
 body {
   background: var(--background);
@@ -21,7 +21,7 @@ body {
   padding-top: 5px;
 }
 .main{
-  padding: 90px 0 50px 0;
+  padding: 70px 0 50px 0;
 }
 h3 {
   margin: 70px 0 0 0;
@@ -65,7 +65,7 @@ h3 {
 }
 .date {
   font-weight: 600;
-  font-size: 18px;
+  font-size: 20px;
 }
 input {
   height: 45px;
@@ -95,7 +95,7 @@ input::placeholder {
   position: relative;
   display: inline-block;
 }
-.autocomplete-items {
+.autocomplete-list {
   position: absolute;
   z-index: 99;
   top: 100%;
@@ -104,13 +104,13 @@ input::placeholder {
   text-align: left;
   border-top: none;
 }
-.autocomplete-items div {
+.autocomplete-list div {
   padding: 10px;
   cursor: pointer;
   background: transparent;
   backdrop-filter: brightness(1.2);
 }
-.autocomplete-items div:hover {
+.autocomplete-list div:hover {
   background-color: transparent;
 }
 .autocomplete-active {
@@ -120,8 +120,8 @@ input::placeholder {
 .fa-clock {
   font-size: 26px;
   cursor: pointer;
-  margin-left: 5px;
-  margin-top: -2px;
+  margin-left: 6px;
+  margin-top: -4px;
   vertical-align:middle;
 }
 .hourly_weather {

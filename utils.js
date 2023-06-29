@@ -26,36 +26,28 @@ function get_day_name(day) {
 
 function autocomplete(inp, arr) {
   var currentFocus;
-  inp.addEventListener("input", function (e) {
-    var a, b, i, val = this.value;
-    closeAllLists();
+    var a, b, i, val = inp.value;
     if (!val) {
       return false;
     }
+    if(document.querySelector('.autocomplete-list')){
+      closeList();
+    }
     currentFocus = -1;
-    a = document.createElement("DIV");
-    a.setAttribute("id", this.id + "autocomplete-list");
-    a.setAttribute("class", "autocomplete-items");
-    this.parentNode.appendChild(a);
+    a = document.createElement("div");
+    a.setAttribute("class", "autocomplete-list");
+    inp.parentNode.appendChild(a);
     for (i = 0; i < arr.length; i++) {
       if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
         b = document.createElement("DIV");
         b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
         b.innerHTML += arr[i].substr(val.length);
         b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-        b.addEventListener("click", function (e) {
-          inp.value = this.getElementsByTagName("input")[0].value;
-          closeAllLists();
-        });
         a.appendChild(b);
       }
     }
-    document.querySelector("#autocomplete-list").addEventListener("click", function (e) {
-      change_city(e.target.outerText);
-    })
-  });
   inp.addEventListener("keydown", function (e) {
-    var x = document.getElementById(this.id + "autocomplete-list");
+    var x = document.querySelector('.autocomplete-list');
     if (x) x = x.getElementsByTagName("div");
     if (e.keyCode == 40) {
       currentFocus++;
@@ -85,17 +77,22 @@ function autocomplete(inp, arr) {
     }
   }
 
-  function closeAllLists(elmnt) {
-    var x = document.getElementsByClassName("autocomplete-items");
-    for (var i = 0; i < x.length; i++) {
-      if (elmnt != x[i] && elmnt != inp) {
-        x[i].parentNode.removeChild(x[i]);
-      }
+  function closeList() {
+    document.removeEventListener('click',closeList);
+    if(document.querySelector('.autocomplete-list')){
+      document.querySelector('.autocomplete-list').remove();
     }
   }
-  document.addEventListener("click", function (e) {
-    closeAllLists(e.target);
-  });
+  
+  document.addEventListener("click", closeList);
+  
+  document.querySelectorAll('.autocomplete-list > div').forEach(el => {
+    el.addEventListener('click', function(e){
+      inp.value = e.target.querySelector('input').value;
+      change_city(inp.value);
+      closeList();
+    })
+  })
 }
 
 function clear_spans() {
@@ -306,7 +303,7 @@ function use_weather_code(weather_code,hour = null) {
   }
   if(!hour && hour != 0){
     if (sun) {
-      document.documentElement.style.setProperty("--background", "linear-gradient(to bottom, #57c1eb 0%,#246fa8 100%)");
+      document.documentElement.style.setProperty("--background", "linear-gradient(to bottom, #46b0da 0%,#135e97 100%)");
     } else {
       document.documentElement.style.setProperty("--background", "linear-gradient(to bottom, #20202c 0%,#515175 100%)");
     }
