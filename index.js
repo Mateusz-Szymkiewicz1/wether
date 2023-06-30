@@ -23,8 +23,8 @@ function get_weather(coords){
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             window.weather = JSON.parse(this.response);
             use_time();
-            let date = new Date();
-            let seconds_to_next_minute = 61-date.getSeconds();
+            const date = new Date();
+            const seconds_to_next_minute = 61-date.getSeconds();
             setTimeout(function(){
               count_time();
             }, 1000*seconds_to_next_minute)
@@ -45,7 +45,7 @@ function get_weather(coords){
             water.innerHTML += window.weather.hourly.rain[(window.selected_card*24)+current_hour]+"mm";
             snow.innerHTML += window.weather.hourly.snowfall[(window.selected_card*24)+current_hour]+"mm";window.sunrise = window.weather.daily.sunrise[window.selected_card];
             window.sunset = window.weather.daily.sunset[window.selected_card];
-            let weather_code_response = use_weather_code(weather_code);
+            const weather_code_response = use_weather_code(weather_code);
             main_icon.className = weather_code_response[0]
             desc.innerText = weather_code_response[1]
         }
@@ -138,7 +138,7 @@ const successCallback = (position) => {
     var xmlhttp_user_coords = new XMLHttpRequest();
     xmlhttp_user_coords.onreadystatechange = function () {
         if (xmlhttp_user_coords.readyState == 4 && xmlhttp_user_coords.status == 200) {
-            let city = JSON.parse(this.response).address.City;
+            const city = JSON.parse(this.response).address.City;
             change_city(city);
         }
     }

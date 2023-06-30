@@ -109,9 +109,9 @@ function clear_spans() {
 
 function capitalize(str) {
   str = str.toLowerCase();
-  var pieces = str.split(" ");
-  for (var i = 0; i < pieces.length; i++) {
-    var j = pieces[i].charAt(0).toUpperCase();
+  const pieces = str.split(" ");
+  for (let i = 0; i < pieces.length; i++) {
+    const j = pieces[i].charAt(0).toUpperCase();
     pieces[i] = j + pieces[i].substr(1);
   }
   return pieces.join(" ");
@@ -122,7 +122,7 @@ function save_city() {
 }
 
 function use_time() {
-  let date = new Date();
+  const date = new Date();
   date.setDate(date.getUTCDate() + (window.selected_card - 2));
   window.current_hour = date.getUTCHours() + (window.weather.utc_offset_seconds / 3600);
   window.current_min = date.getUTCMinutes();
@@ -216,12 +216,12 @@ function use_weather_code(weather_code,hour = null) {
       sun = false;
     }
   }else{
-    let sunrise_time = window.sunrise.substr(window.sunrise.length - 5);
-    let sunset_time = window.sunset.substr(window.sunrise.length - 5);
-    let sunrise_minutes = parseInt(sunrise_time.split(":")[1]);
-    let sunrise_hours = parseInt(sunrise_time.split(":")[0]);
-    let sunset_minutes = parseInt(sunset_time.split(":")[1]);
-    let sunset_hours = parseInt(sunset_time.split(":")[0]);
+    const sunrise_time = window.sunrise.substr(window.sunrise.length - 5);
+    const sunset_time = window.sunset.substr(window.sunrise.length - 5);
+    const sunrise_minutes = parseInt(sunrise_time.split(":")[1]);
+    const sunrise_hours = parseInt(sunrise_time.split(":")[0]);
+    const sunset_minutes = parseInt(sunset_time.split(":")[1]);
+    const sunset_hours = parseInt(sunset_time.split(":")[0]);
     if (window.current_hour < sunrise_hours || window.current_hour > sunset_hours) {
       sun = false;
     }
@@ -231,11 +231,14 @@ function use_weather_code(weather_code,hour = null) {
     if (window.current_hour == sunset_hours && window.current_min > sunset_minutes) {
       sun = false;
     }
-    if(window.current_hour == sunset_hours){
-      sunset = true;
-    }
-  if(window.current_hour == sunrise_hours){
+    const sunrise_timestamp = sunrise_hours*60+sunrise_minutes;
+    const sunset_timestamp = sunset_hours*60+sunset_minutes;
+    const current_timestamp = window.current_hour*60+window.current_min;
+    if(Math.abs(sunrise_timestamp-current_timestamp) <= 30){
       sunrise = true;
+    }
+    if(Math.abs(sunset_timestamp-current_timestamp) <= 30){
+      sunset = true;
     }
   }
   switch (weather_code) {
@@ -317,7 +320,7 @@ function use_weather_code(weather_code,hour = null) {
   return [main_icon,desc];
 }
 function hourly_weather(){
-  let date = new Date();
+  const date = new Date();
   date.setDate(date.getUTCDate() + (window.selected_card - 2));
   let month, day;
   month = date.getUTCMonth() + 1;
@@ -354,19 +357,17 @@ function hourly_weather(){
     month = "0" + month;
   }
   document.querySelector(".hourly_weather h2").innerText = day+"-"+month+"-"+date.getFullYear()+" - "+week_day;
-  let hourly_weather = window.weather.hourly;
-  let weather_codes = hourly_weather.weathercode.slice((window.selected_card*24),(window.selected_card*24)+25);
-  let temps =  hourly_weather.temperature_2m.slice((window.selected_card*24),(window.selected_card*24)+25);
+  const hourly_weather = window.weather.hourly;
+  const weather_codes = hourly_weather.weathercode.slice((window.selected_card*24),(window.selected_card*24)+25);
+  const temps =  hourly_weather.temperature_2m.slice((window.selected_card*24),(window.selected_card*24)+25);
   for(let i = 0; i <= 24;i++){
-    let li = document.createElement("li");
+    const li = document.createElement("li");
     let li_hour = i;
     if (li_hour < 10) {
       li_hour = "0" + li_hour;
     }
-    let weather_code_response = use_weather_code(weather_codes[i],i);
-    let icon = weather_code_response[0];
-    let desc = weather_code_response[1];
-    li.innerHTML = `${li_hour}:00<br/><i class="${icon}"></i><br/>${desc} : ${temps[i]}\u00B0C`;
+    const weather_code_response = use_weather_code(weather_codes[i],i);
+    li.innerHTML = `${li_hour}:00<br/><i class="${weather_code_response[0]}"></i><br/>${weather_code_response[1]} : ${temps[i]}\u00B0C`;
     document.querySelector("ul").appendChild(li);
   }
 }
