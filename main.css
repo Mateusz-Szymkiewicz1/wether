@@ -21,7 +21,7 @@ body {
   padding-top: 5px;
 }
 .main{
-  padding: 70px 0 50px 0;
+  padding: 60px 0 50px 0;
 }
 h3 {
   margin: 70px 0 0 0;
@@ -58,10 +58,10 @@ h3 {
   z-index: 100;
 }
 .left_arrow {
-  left: 20px;
+  left: 30px;
 }
 .right_arrow {
-  right: 20px;
+  right: 30px;
 }
 .date {
   font-weight: 600;
@@ -145,6 +145,7 @@ input::placeholder {
 .hourly_weather h2 {
   text-align: center;
   margin-top: 90px;
+  margin-bottom: 50px;
 }
 ul {
   list-style: none;

@@ -1,4 +1,10 @@
 function get_day_name(day) {
+  if(day > 6){
+    day = day-7;
+  }
+  if(day < 0){
+    day = 6;
+  }
   switch (day) {
     case 0:
       return "Sunday";
@@ -135,9 +141,10 @@ function use_time() {
     }
   }
   let min = window.current_min;
-  let month, day;
+  let month, day,year;
   month = date.getUTCMonth() + 1;
   day = date.getUTCDate();
+  year = date.getFullYear();
   let week_day = get_day_name(date.getUTCDay());
   if (window.current_hour >= 24) {
     window.current_hour -= 24;
@@ -161,6 +168,7 @@ function use_time() {
     }
     if (month == 13) {
       month = 1;
+      year++;
     }
   }
   if (window.current_hour < 0) {
@@ -182,7 +190,7 @@ function use_time() {
     min = "0" + min;
   }
   city_name.innerText = window.city + " - " + hour + ":" + min;
-  span_date.innerText = day + "-" + month + "-" + date.getFullYear() + " - " + week_day;
+  span_date.innerText = day + "-" + month + "-" + year + " - " + week_day;
 }
 
 function count_time() {
@@ -321,10 +329,21 @@ function use_weather_code(weather_code,hour = null) {
 }
 function hourly_weather(){
   const date = new Date();
+  window.current_hour = date.getUTCHours() + (window.weather.utc_offset_seconds / 3600);
+  window.current_min = date.getUTCMinutes();
+  if(window.current_hour === +window.current_hour && window.current_hour !== (window.current_hour|0)){
+    window.current_hour = Math.floor(window.current_hour);
+    window.current_min += 30;
+    if(window.current_min >= 60){
+      window.current_min -= 60;
+      window.current_hour++;
+    }
+  }
   date.setDate(date.getUTCDate() + (window.selected_card - 2));
-  let month, day;
+  let month, day,year;
   month = date.getUTCMonth() + 1;
   day = date.getUTCDate();
+  year = date.getFullYear();
   let week_day = get_day_name(date.getUTCDay());
   if (window.current_hour > 24) {
     window.current_hour -= 24;
@@ -348,6 +367,7 @@ function hourly_weather(){
     }
     if (month == 13) {
       month = 1;
+      year++;
     }
   }
   if (day < 10) {
@@ -356,7 +376,7 @@ function hourly_weather(){
   if (month < 10) {
     month = "0" + month;
   }
-  document.querySelector(".hourly_weather h2").innerText = day+"-"+month+"-"+date.getFullYear()+" - "+week_day;
+  document.querySelector(".hourly_weather h2").innerText = day+"-"+month+"-"+year+" - "+week_day;
   const hourly_weather = window.weather.hourly;
   const weather_codes = hourly_weather.weathercode.slice((window.selected_card*24),(window.selected_card*24)+25);
   const temps =  hourly_weather.temperature_2m.slice((window.selected_card*24),(window.selected_card*24)+25);
@@ -373,6 +393,5 @@ function hourly_weather(){
 }
 function clear_hourly(){
   document.querySelector(".hourly_weather h2").innerHTML = '';
-  document.querySelector(".hourly_weather h3").innerHTML = '';
   document.querySelector(".hourly_weather ul").innerHTML = '';
 }
