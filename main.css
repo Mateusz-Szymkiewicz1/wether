@@ -1,9 +1,11 @@
 :root {
   --primary: #f4ad23;
   --background: linear-gradient(to bottom, #46b0da 0%,#135e97 100%);
+  --background-img: url('');
 }
 body {
-  background: var(--background);
+  background: var(--background-img), var(--background);
+  background-size: cover;
   color: #fff;
   font-family: 'Helvetica';
   background-repeat: no-repeat;
@@ -130,7 +132,7 @@ input::placeholder {
   left: 0;
   bottom: 0;
   right: 0;
-  background: var(--background);
+  background: var(--background-img), var(--background);
   border-radius: 10px;
   overflow-y: auto;
   padding-bottom: 50px;
@@ -158,7 +160,7 @@ ul {
 ul li {
   text-align: center;
   background: transparent;
-  backdrop-filter: brightness(1.2);
+  backdrop-filter: brightness(1.4);
   margin: 15px;
   font-size: 22px;
   padding: 30px;

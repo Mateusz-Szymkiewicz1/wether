@@ -294,7 +294,7 @@ function use_weather_code(weather_code,hour = null) {
       } else {
         main_icon = "fa fa-cloud-moon-rain";
       }
-      desc = "Deszcz";
+      desc = "Rain";
       break;
     case 85:
     case 86:
@@ -314,15 +314,29 @@ function use_weather_code(weather_code,hour = null) {
   }
   if(!hour && hour != 0){
     if (sun) {
-      document.documentElement.style.setProperty("--background", "linear-gradient(to bottom, #46b0da 0%,#135e97 100%)");
+      if(desc == 'Drizzle' || desc == 'Rain' || desc == 'Thunderstorm'){
+        document.documentElement.style.setProperty("--background-img", 'url("images/rain_day.jpg")');
+      }else if(desc == 'Snow'){
+        document.documentElement.style.setProperty("--background-img", 'url("images/snow_day.jpg")');
+      }else if(desc == 'Cloudy'){
+        document.documentElement.style.setProperty("--background-img", 'url("images/cloudy.jpg")');
+      }else if(desc == 'Fog'){
+        document.documentElement.style.setProperty("--background-img", 'url("images/fog.jpg")');
+      }else{
+        document.documentElement.style.setProperty("--background", "linear-gradient(to bottom, #46b0da 0%,#135e97 100%)");
+        document.documentElement.style.setProperty("--background-img", 'url("images/sunny.jpg")');
+      }
     } else {
       document.documentElement.style.setProperty("--background", "linear-gradient(to bottom, #20202c 0%,#515175 100%)");
+      document.documentElement.style.setProperty("--background-img", 'url("images/night.jpg")');
     }
     if(sunset){
       document.documentElement.style.setProperty("--background", "linear-gradient(to bottom, #071B26 0%,#071B26 30%,#8A3B12 80%,#240E03 100%)");
+      document.documentElement.style.setProperty("--background-img", 'url("images/sunset.jpg")');
     }
     if(sunrise){
       document.documentElement.style.setProperty("--background", "linear-gradient(to bottom, #757abf 0%,#8583be 60%,#eab0d1 100%)");
+      document.documentElement.style.setProperty("--background-img", 'url("images/sunrise.jpg")');
     }
   }
   return [main_icon,desc];

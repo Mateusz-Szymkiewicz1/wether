@@ -123,7 +123,7 @@ function change_city(city){
             }
         }
     }
-    xmlhttp_city_coords.open("GET", `https://geocode.maps.co/search?q=${city}`, true);
+    xmlhttp_city_coords.open("GET", `https://geocode.maps.co/search?q=${city}&api_key=65abea6ae567c558789736lrhb4d12a`, true);
     xmlhttp_city_coords.send(null);
 }
 
