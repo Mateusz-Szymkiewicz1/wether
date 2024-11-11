@@ -23,7 +23,12 @@ body {
   padding-top: 5px;
 }
 .main{
-  padding: 60px 0 50px 0;
+  padding: 20px 20px 60px 20px;
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 h3 {
   margin: 70px 0 0 0;
@@ -54,10 +59,30 @@ h3 {
 .arrow{
   font-size: 32px;
   position: absolute;
-  top: 290px;
+  top: 45vh;
   cursor: pointer;
   color: var(--primary);
   z-index: 100;
+}
+@media only screen and (max-width: 500px) {
+  .left_arrow{
+    left: 10px !important;
+  }
+  .right_arrow {
+    right: 10px !important;
+  }
+}
+@media only screen and (max-width: 550px) {
+  .main{
+    padding-top: 30px !important;
+  }
+  #main_icon{
+    font-size: 85px;
+  }
+  .city_name{
+    margin-top: 30px;
+    font-size: 28px;
+  }
 }
 .left_arrow {
   left: 30px;
